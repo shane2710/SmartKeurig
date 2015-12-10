@@ -9,6 +9,7 @@
 // button presses w/ quick 5V pulses.
 //////////////////////////////////////////
 
+
 /* note:  to add to functionality, I could make a database that
  *  stores the number of keurig credits someone in the dorm has,
  *  then they can electronically request coffee, a reloading mechanism
@@ -23,13 +24,14 @@
  *  with domer dollars.  Or flex points. 
  */
 
-#include <Timer.h>
-#include <Event.h>
+// #include <Timer.h>
+// #include <Event.h>
 
 // states declared:
 const int ADD_WATER = 1;
 const int DESCALE = 2;
 const int SUCCESS = 0;
+
 // note: #define is not used in order to
 // avoid accidental replacement of 'add_water'
 // within 'add_water_pin' in some older versions.
@@ -37,7 +39,7 @@ const int SUCCESS = 0;
 /* pins for digital output, simulating
  *  buttons presses:
  */
-const int power = 5;
+const int power_pin = 5;
 const int open_close = 6;
 const int small_brew = 4;
 const int med_brew = 3;
@@ -49,6 +51,13 @@ const int large_brew = 2;
 const int add_water_pin = 5;
 const int descale_pin = 3;
 const int heating_pin = 4;
+
+/* Variable to track state of Keurig, on or standby,
+ * by flipping every time the button 5 is pressed, and
+ * making the assumption that the Arduino is powered on with the 
+ * Keurig, dependently.  Global variable for this reason.
+ */
+int power_state = -1;
 
 
 
@@ -75,10 +84,25 @@ void loop() {
   while (Serial.available()) {
     brew_size = (Serial.read() - '0');
     if (!brew_size) {
-      press_button(power);
+      press_button(power_pin);
     }
     else {
       Serial.println("received brew request!");
+      Serial.println();
+      Serial.println("Size: ");
+
+      switch (brew_size) {
+        case 2:
+            Serial.println("Large");
+            break;
+        case 3:
+            Serial.println("Medium");
+            break;
+        case 4:
+            Serial.println("Small");
+            break;
+      }
+      Serial.println("starting...");
       Serial.println();
     
       end_result = makeCoffee(brew_size);
@@ -108,7 +132,7 @@ int makeCoffee(int selection)
 {
   int ready_status = 0;
   
-  press_button(power);
+  press_button(power_pin);
   delay(3000);
 
   // check to see if we're ready to brew:
@@ -144,7 +168,7 @@ int makeCoffee(int selection)
   Serial.println("brewing...");
   delay(40000);  // wait for now to determine if brew is done.
 
-  press_button(power);
+  press_button(power_pin);
 
   return brew_status();
 }
@@ -156,8 +180,26 @@ void press_button(int j)
   digitalWrite(j, HIGH);
   delay(100);
   digitalWrite(j, LOW);
+
+  /* check to see if the Keurig is ON or in STANDBY, relay
+     the information, and flip power_state.
+     */
+
+  if (j == power_pin) {
+      if (power_state == 1) {
+        Serial.println("Keurig was ON, sending into STANDBY...");
+        Serial.println();
+      }
+      else {
+        Serial.println("Keurig was in STANDBY, turning ON...");
+        Serial.println();
+      }
+      power_state = -(power_state);
+  }
+
   Serial.print("Pressed button: ");
   Serial.println(j, DEC);
+
 }
 
 

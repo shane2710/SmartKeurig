@@ -15,7 +15,7 @@ int open_close = 6;
 int small_brew = 4;
 int med_brew = 3;
 int large_brew = 2;
-  
+
 // char add_water_pin[] = {A5};
 // char descale_pin[] = {A4};
 // char heating_pin[] = {A3};
@@ -38,7 +38,7 @@ void setup() {
     pinMode(i, OUTPUT);
   }
 
-  
+
   for (i = 2; i < 7; i++) {
     digitalWrite(i, LOW);
   }
@@ -62,7 +62,7 @@ void loop() {
       Serial.print("6\n");
     }
     else {
-    press_button(button);
+      press_button(button);
     }
   }
 
@@ -71,35 +71,35 @@ void loop() {
   // Serial.println(add_water);
   // Serial.println(heating);
   // Serial.println();
-  
+
   if (add_water < 4) {
-      Serial.println("add water!");
+    Serial.println("add water!");
   }
   else {
-      Serial.println("water ready");
+    Serial.println("water ready");
   }
 
   if (heating < 4) {
-      Serial.println("heating....");
+    Serial.println("heating....");
   }
   else {
-      Serial.println("heat ready!");
+    Serial.println("heat ready!");
   }
 
   Serial.println();
 
   if ((add_water == 5) && (heating == 5)) {
-      Serial.println("All systems ready!");
+    Serial.println("All systems ready!");
   }
   else {
-      Serial.println("Check status!");
+    Serial.println("Check status!");
   }
 
   delay(1000);
   Serial.println();
   Serial.println();
   Serial.println();
-  
+
 
 }
 
