@@ -160,7 +160,7 @@ int makeCoffee(int selection)
   /* here is a snippet to run the inverted logic
    *  needed to simulate the open and close:
    */
-  Serial.println("Pressed button: 6");
+  Serial.println("\nPressed button: 6");
   digitalWrite(6, LOW);
   delay(500);
   digitalWrite(6, HIGH);
@@ -182,7 +182,7 @@ int makeCoffee(int selection)
    */ 
    
   Serial.println("Brewing...");
-  delay(40000);  // wait for now to determine if brew is done.
+  delay(60000);  // wait for now to determine if brew is done.
 
   final_brew_check = brew_status(); // check statusd
   press_button(power_pin); // turn machine back off
