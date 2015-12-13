@@ -94,7 +94,7 @@ void loop() {
       press_button(power_pin);
     }
     else {
-      Serial.println("received brew request!");
+      Serial.println("Received brew request!");
       Serial.println();
       Serial.println("Size: ");
 
@@ -109,23 +109,23 @@ void loop() {
             Serial.println("Small");
             break;
       }
-      Serial.println("starting...");
+      Serial.println("Starting...");
       Serial.println();
     
       end_result = makeCoffee(brew_size);
     
       switch (end_result) {
         case SUCCESS:
-          Serial.println("everything went A-OK!");
+          Serial.println("Everything went A-OK!");
           break;
         case ADD_WATER:
-          Serial.println("need more water!");
+          Serial.println("Need more water!");
           break;
         case DESCALE:
-          Serial.println("time for a cleaning!");
+          Serial.println("Time for a cleaning!");
           break;
         default:
-          Serial.println("unknown error, plz call shane");
+          Serial.println("Unknown error, self-destructing...");
           break;
       }
     }
@@ -152,7 +152,7 @@ int makeCoffee(int selection)
 
   // also, wait while the keurig is heating up:
   while ((analogRead(heating_pin) * (5.0 / 1023)) < 4) {
-    Serial.print("heating...");
+    Serial.println("Heating...");
     // add code to print to small lcd as well.
     delay(1000);
   }
@@ -160,11 +160,18 @@ int makeCoffee(int selection)
   /* here is a snippet to run the inverted logic
    *  needed to simulate the open and close:
    */
-  Serial.println("\nPressed button: 6");
+  Serial.println("Pressed button: 6");
   digitalWrite(6, LOW);
   delay(500);
   digitalWrite(6, HIGH);
   delay(2000);
+
+  // sometimes the keurig heats now as well
+  while ((analogRead(heating_pin) * (5.0 / 1023)) < 4) {
+    Serial.println("Heating...");
+    // add code to print to small lcd as well.
+    delay(1000);
+  }
 
   /* Now we can choose the brew size! */
   press_button(selection);
@@ -174,7 +181,7 @@ int makeCoffee(int selection)
    *  a 45 second timer.  (INTERRUPTS!?)
    */ 
    
-  Serial.println("brewing...");
+  Serial.println("Brewing...");
   delay(40000);  // wait for now to determine if brew is done.
 
   final_brew_check = brew_status(); // check statusd
@@ -199,12 +206,14 @@ void press_button(int j)
       if (power_state == 1) {
         Serial.println("Keurig was ON, sending into STANDBY...");
         Serial.println();
+        power_state = 0;
       }
       else {
         Serial.println("Keurig was in STANDBY, turning ON...");
         Serial.println();
+        power_state = 1;
+
       }
-      power_state = -(power_state);
   }
 
   Serial.print("Pressed button: ");
