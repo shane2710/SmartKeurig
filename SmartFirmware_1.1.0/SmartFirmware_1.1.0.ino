@@ -148,6 +148,7 @@ int makeCoffee(int selection)
   if (ready_status) {
     return ready_status;
   }
+  delay(1500);
 
   // also, wait while the keurig is heating up:
   while ((analogRead(heating_pin) * (5.0 / 1023)) < 4) {
@@ -159,7 +160,7 @@ int makeCoffee(int selection)
   /* here is a snippet to run the inverted logic
    *  needed to simulate the open and close:
    */
-  Serial.println("Pressed button: 6");
+  Serial.println("\nPressed button: 6");
   digitalWrite(6, LOW);
   delay(500);
   digitalWrite(6, HIGH);
