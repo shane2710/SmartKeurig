@@ -70,7 +70,6 @@ void setup() {
   }
   // note: no setup needed for the three analog input pins
 
-  Serial.begin(9600);  // configure baud rate - 9600 bits per second
   digitalWrite(6, HIGH); // the open_close switch is NC (normally closed)
   
 }
@@ -83,6 +82,7 @@ void loop() {
   
   // check if we've already printed "waiting..."
   if (waiting == 0) { 
+    Serial.begin(9600);  // configure baud rate - 9600 bits per second
     Serial.println("Waiting for request...");
     waiting = 1;
   }
@@ -129,6 +129,7 @@ void loop() {
           break;
       }
     }
+    Serial.end();
   }
   delay(500);
 }
