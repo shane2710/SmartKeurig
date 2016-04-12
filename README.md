@@ -2,7 +2,7 @@
 
 Software to intelligently control a modified Keurig K40 coffee maker in my dorm's lobby.  Powered by Arduino, a Raspberry Pi, Arch Linux, and a lot of Caffeine.
 
-See it in action [here](https://www.youtube.com/watch?v=fpo8ZUwcHW0)!
+#### See it in action [here](https://www.youtube.com/watch?v=fpo8ZUwcHW0)!
 
 I took apart a Keurig K40 coffee maker to take a look at its internal embedded systems and gain a better understanding of the logic behind the coffee brewing process.  Upon disassembly, I was able to gain access to a PCB that had push buttons, LEDs, various capacitors and resistors, and a pressure sensor. 
 
