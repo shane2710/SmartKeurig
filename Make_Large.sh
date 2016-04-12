@@ -1,4 +1,5 @@
 #!/bin/bash
+# Super simple script to open serial connection to raspi and order a large coffee
 
 clear
 
