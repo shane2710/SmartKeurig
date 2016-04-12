@@ -17,5 +17,9 @@ Various inputs are given to the Keurig during the brewing process - the pressure
 
 This picture illustrates how I have soldered six wires to various points on the back of the control board to interface with this machine.  Because I was unable to gain access to the internal microcontroller of this Keurig, I connected these nine wires to my own ATMega328P-UP microcontroller’s digital input / output pins and wrote a program that simulates button presses needed to brew the coffee and interpret the status LED states to gain further insight and automate the brewing process.
 
+<<<<<<< HEAD
 ![quick diagram of overarching logic control](https://raw.githubusercontent.com/shane1027/SmartKeurig/master/Rough_Schematic.png)
 After taking inputs from the temperature sensor, pressure sensor, and user interface buttons, the machine outputs various status LED states and connects power to a pump’s motor in order to brew the coffee.  The ATMega takes serial commands for the brew size and time to start the brew, and this in turn is connected to a Raspberry Pi running Arch Linux for ARM machines.  Thus, I am able to set a crontab for daily brewing automation, and can also SSH into the Raspberry Pi to issue commands to brew on demand from anywhere in the world with internet access.
+=======
+After taking inputs from the temperature sensor, pressure sensor, and user interface buttons, the machine outputs various status LED states and connects power to a pump’s motor in order to brew the coffee.  The ATMega takes serial commands for the brew size and time to start the brew, and this in turn is connected to a Raspberry Pi running Arch Linux for ARM machines.  **Thus, I am able to set a crontab for daily brewing automation, and can also SSH into the Raspberry Pi to issue commands to brew on demand from anywhere in the world with internet access!**
+>>>>>>> 1713881883e53f952b0ff34b4821ac9f57074038
